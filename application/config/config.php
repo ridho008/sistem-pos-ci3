@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/latihanpostci/';
+$config['base_url'] = 'http://localhost/sistem-pos-ci3/';
 
 /*
 |--------------------------------------------------------------------------
