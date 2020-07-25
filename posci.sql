@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 22, 2020 at 06:07 PM
+-- Generation Time: Jul 25, 2020 at 01:46 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -20,6 +20,68 @@ SET time_zone = "+00:00";
 --
 -- Database: `phpmvc`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `barang`
+--
+
+CREATE TABLE `barang` (
+  `kode_brg` char(5) NOT NULL,
+  `nama_brg` varchar(100) NOT NULL,
+  `id_kategori` int(11) NOT NULL,
+  `id_satuan` int(11) NOT NULL,
+  `hrgjual` int(11) NOT NULL,
+  `hrgbeli` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `barang`
+--
+
+INSERT INTO `barang` (`kode_brg`, `nama_brg`, `id_kategori`, `id_satuan`, `hrgjual`, `hrgbeli`) VALUES
+('54565', 'Baju', 1, 3, 4000, 7000),
+('67890', 'Daia', 1, 1, 5000, 6000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kategori`
+--
+
+CREATE TABLE `kategori` (
+  `katid` int(11) NOT NULL,
+  `katnama` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`katid`, `katnama`) VALUES
+(1, 'Busana');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `konsumen`
+--
+
+CREATE TABLE `konsumen` (
+  `konkode` char(5) NOT NULL,
+  `konnama` varchar(100) DEFAULT NULL,
+  `konalamat` varchar(200) DEFAULT NULL,
+  `konnotelp` char(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `konsumen`
+--
+
+INSERT INTO `konsumen` (`konkode`, `konnama`, `konalamat`, `konnotelp`) VALUES
+('K0001', 'Ridho Surya', 'jl.lontar', '08765675'),
+('K0002', 'Marini Alsa Khairana', 'Jl.rambutan', '087676545');
 
 -- --------------------------------------------------------
 
@@ -43,6 +105,26 @@ INSERT INTO `mahasiswa` (`id`, `nama`, `nrp`, `email`, `jurusan`) VALUES
 (1, 'Ridho Surya', 876765456, 'ridho@gmail.com', 'Teknik Informatika'),
 (2, 'Marini Alsa Khairana', 876765456, 'rana@gmail.com', 'Teknik Informatika'),
 (3, 'Harun aw', 11111101, 'harun@gmail.com', 'Teknik Informatika');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pemasok`
+--
+
+CREATE TABLE `pemasok` (
+  `pemkode` char(5) NOT NULL,
+  `pemnama` varchar(100) DEFAULT NULL,
+  `pemalamat` varchar(200) DEFAULT NULL,
+  `pemnotelp` char(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pemasok`
+--
+
+INSERT INTO `pemasok` (`pemkode`, `pemnama`, `pemalamat`, `pemnotelp`) VALUES
+('P0001', 'Juki Awana', 'jl.rental', '0876765654');
 
 -- --------------------------------------------------------
 
@@ -112,6 +194,26 @@ INSERT INTO `peoples` (`id`, `name`, `address`, `email`) VALUES
 (48, 'Velva Berge', '5295 Mayer Route Suite 200', 'kchamplin@example.net'),
 (49, 'Enola Senger Sr.', '244 Schultz Fall Suite 475', 'cremin.ava@example.net'),
 (50, 'Otto Cartwright', '86081 Effertz Pass', 'hills.marlen@example.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `satuan`
+--
+
+CREATE TABLE `satuan` (
+  `satid` int(11) NOT NULL,
+  `satnama` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `satuan`
+--
+
+INSERT INTO `satuan` (`satid`, `satnama`) VALUES
+(1, 'Pcs'),
+(2, 'Pack'),
+(3, 'Lusin');
 
 -- --------------------------------------------------------
 
@@ -224,11 +326,36 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (6, 2, 'My Profile', 'user', 'fa fa-trash', 1),
 (7, 1, 'Role', 'admin/role', 'fas fa-user-tie', 1),
 (8, 2, 'Edit Profile', 'user/edit', 'fa fa-user-edit', 1),
-(9, 2, 'Ganti Password', 'user/changepassword', 'fa fa-key', 1);
+(9, 2, 'Ganti Password', 'user/changepassword', 'fa fa-key', 1),
+(10, 7, 'Konsumen', 'konsumen', 'fa fa-user-circle-o', 1),
+(11, 1, 'Konsumen', 'konsumen', 'fa fa-user-circle', 1),
+(12, 1, 'Pemasok', 'pemasok', 'fa fa-car', 1),
+(13, 1, 'Kategori', 'kategori', 'fa fa-tag', 1),
+(14, 1, 'Satuan', 'satuan', 'fa fa-archive', 1),
+(15, 0, 'Barang', 'barang', 'fa fa-bars', 1),
+(16, 1, 'Barang', 'barang', 'fa fa-bars', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `barang`
+--
+ALTER TABLE `barang`
+  ADD PRIMARY KEY (`kode_brg`);
+
+--
+-- Indexes for table `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`katid`);
+
+--
+-- Indexes for table `konsumen`
+--
+ALTER TABLE `konsumen`
+  ADD PRIMARY KEY (`konkode`);
 
 --
 -- Indexes for table `mahasiswa`
@@ -237,11 +364,23 @@ ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pemasok`
+--
+ALTER TABLE `pemasok`
+  ADD PRIMARY KEY (`pemkode`);
+
+--
 -- Indexes for table `peoples`
 --
 ALTER TABLE `peoples`
   ADD PRIMARY KEY (`id`),
   ADD KEY `email` (`email`);
+
+--
+-- Indexes for table `satuan`
+--
+ALTER TABLE `satuan`
+  ADD PRIMARY KEY (`satid`);
 
 --
 -- Indexes for table `tb_user`
@@ -278,6 +417,12 @@ ALTER TABLE `user_sub_menu`
 --
 
 --
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `katid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
@@ -288,6 +433,12 @@ ALTER TABLE `mahasiswa`
 --
 ALTER TABLE `peoples`
   MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- AUTO_INCREMENT for table `satuan`
+--
+ALTER TABLE `satuan`
+  MODIFY `satid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
@@ -305,7 +456,7 @@ ALTER TABLE `user_access_menu`
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_role`
@@ -317,7 +468,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

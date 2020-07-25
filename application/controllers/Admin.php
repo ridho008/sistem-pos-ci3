@@ -14,6 +14,10 @@ class Admin extends CI_Controller {
 	{
 		$data['judul'] = 'Dashboard';
 		$data['user'] = $this->db->get_where('tb_user', ['email' => $this->session->userdata('email')])->row_array();
+		$data['konsumen'] = $this->db->get('konsumen')->num_rows();
+		$data['pemasok'] = $this->db->get('pemasok')->num_rows();
+		$data['barang'] = $this->db->get('barang')->num_rows();
+		$data['kategori'] = $this->db->get('kategori')->num_rows();
 		$this->load->view('themeplates/header', $data);
 		$this->load->view('themeplates/sidebar', $data);
 		$this->load->view('admin/index', $data);
